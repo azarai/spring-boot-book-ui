@@ -5,3 +5,5 @@ target
 .springBeans
 node_modules
 dist
+
+*.zip

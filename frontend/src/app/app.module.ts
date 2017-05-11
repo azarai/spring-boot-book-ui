@@ -14,12 +14,17 @@ import { PaginationModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component';
 
+import { AuthGuard } from './_guards/auth.guard';
+import { LoginComponent } from './login/login.component';
+import {AuthenticationService} from './authentication.service';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CommentlistComponent,
-    ConfirmdialogComponent
+    ConfirmdialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     PaginationModule.forRoot(),
     ModalModule.forRoot()
   ],
-  providers: [CommentService],
+  providers: [CommentService,
+  AuthGuard, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

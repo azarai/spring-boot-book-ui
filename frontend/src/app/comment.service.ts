@@ -16,22 +16,19 @@ export class CommentService {
 
 
   public getComments (page:number) {
-    let username: string = 'admin';
-      let password: string = 'mypassword';
-      let headers: Headers = new Headers({ 'Content-Type': 'application/json' });
-       headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-       let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.server + "/comments?page=" + page, options).map(this.extractData);
+    return this.http.get(this.server + "/comments?page=" + page, this.getAuthHeader()).map(this.extractData);
   }
 
   public deleteComment(comment) {
-    let username: string = 'admin';
-      let password: string = 'mypassword';
-      let headers: Headers = new Headers();
-       headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-       let options = new RequestOptions({ headers: headers });
+     return this.http.delete(this.server + "/" + comment.id, this.getAuthHeader()).map(this.extractData);
+  }
 
-     return this.http.delete(this.server + "/" + comment.id, options).map(this.extractData);
+  private getAuthHeader() {
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    let headers: Headers = new Headers();
+    headers.append("Authorization", user.token);
+    let options = new RequestOptions({ headers: headers });
+    return options;
   }
 
   private extractData(res: Response) {
