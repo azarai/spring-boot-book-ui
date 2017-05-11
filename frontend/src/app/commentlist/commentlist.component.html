@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col">
+    <table class="table table-hover table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Username</th>
+          <th>eMail address</th>
+          <th>Comment</th>
+          <th>Created</th>
+          <th>Spam</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comment of comments" data-id="{{comment.id}}" >
+          <td>{{comment.username}}</td>
+          <td>{{comment.email_address}}</td>
+          <td>{{comment.comment}}</td>
+          <td>{{comment.creation_date | date:"short"}}</td>
+          <td> <span *ngIf="comment.spam == true" class="badge badge-pill badge-warning">Spam</span></td>
+          <td><button (click)="confirmDelete.confirmDelete(comment)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 offset-md-3" *ngIf="comments">
+    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" 
+    [boundaryLinks]="true"
+    [maxSize]="maxSize"
+    (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>
+
+<confirmdialog #confirmDelete [confirmed]="deleteConfirmed.bind(this)"></confirmdialog>
