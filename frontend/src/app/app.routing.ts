@@ -8,7 +8,7 @@ import { AuthGuard } from './_guards/auth.guard';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'comments', component: CommentlistComponent, canActivate: [AuthGuard]},
+  { path: 'comments', component: CommentlistComponent},
   { path: '', component: HomeComponent, pathMatch: 'full'} // redirect to home page on load
 ];
 

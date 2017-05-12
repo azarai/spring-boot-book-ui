@@ -30,6 +30,7 @@ import de.codeboje.springbootbook.commons.CommentDTO;
 import de.codeboje.springbootbook.model.CommentModel;
 
 @RestController
+@RequestMapping("/api")
 public class ReadController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReadController.class);

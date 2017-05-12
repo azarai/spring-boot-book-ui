@@ -25,6 +25,7 @@ import de.codeboje.springbootbook.model.CommentModel;
 
 
 @Controller
+@RequestMapping("/api")
 public class WriteController {
 
 	private static final Logger LOGGER = LoggerFactory
