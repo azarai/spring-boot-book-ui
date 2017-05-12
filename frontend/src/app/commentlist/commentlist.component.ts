@@ -50,7 +50,10 @@ export class CommentlistComponent implements OnInit {
         this.comments = null;
         this.loadData(this.currentPage);
       },
-      error => console.log(error),
+      error => {
+        console.log(error);
+        alert(error);
+      },
     );
   }
 }

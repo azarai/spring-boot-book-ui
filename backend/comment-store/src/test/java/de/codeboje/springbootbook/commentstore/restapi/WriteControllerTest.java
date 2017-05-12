@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,7 +47,8 @@ public class WriteControllerTest {
                         .param("comment", model.getComment())
                         .param("pageId", model.getPageId())
                         .param("emailAddress", model.getEmailAddress())
-                        .param("username", model.getUsername()))
+                        .param("username", model.getUsername())
+                        .with(csrf()))
                     .andExpect(status().is(200)).andReturn();
         
         String id = result.getResponse().getContentAsString();
@@ -83,7 +85,7 @@ public class WriteControllerTest {
 		model.setComment("I am the comment");
         String id = service.put(model);
         
-        this.mvc.perform(delete("/" + id)).andExpect(status().isOk());
+        this.mvc.perform(delete("/" + id).with(csrf())).andExpect(status().isOk());
         
         assertNull(service.get(model.getId()));        
     }

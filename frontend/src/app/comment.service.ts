@@ -24,10 +24,10 @@ export class CommentService {
   }
 
   private getAuthHeader() {
-    let user = JSON.parse(localStorage.getItem('currentUser'));
-    let headers: Headers = new Headers();
-    headers.append("Authorization", user.token);
-    let options = new RequestOptions({ headers: headers });
+    //let user = JSON.parse(localStorage.getItem('currentUser'));
+    //let headers: Headers = new Headers();
+    //headers.append("Authorization", user.token);
+    let options = new RequestOptions({ withCredentials: true});
     return options;
   }
 
