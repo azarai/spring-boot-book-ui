@@ -18,7 +18,8 @@ export class AuthenticationService {
       let options = new RequestOptions({ headers: headers });
       return this.http.get(this.server + "/authenticate", options).map((response: Response) => {
           if( response.status === 200) {
-            localStorage.setItem('currentUser', JSON.stringify({ user: username, token: authHeaderValue}));
+            console.log(response.text());
+            localStorage.setItem('currentUser', JSON.stringify({ user: username, token: response.text()}));
           }  
       });
 
