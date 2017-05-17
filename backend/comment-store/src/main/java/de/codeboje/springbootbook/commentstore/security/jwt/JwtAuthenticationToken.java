@@ -6,14 +6,11 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-/**
- * Authentication object for Spring Security
- *
- */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
-    private static final long serialVersionUID = 2877954820905567501L;
-
-    private String token;
+   
+	private static final long serialVersionUID = -8078029459947952983L;
+	
+	private String token;
     private User user;
 
     public JwtAuthenticationToken(String unsafeToken) {

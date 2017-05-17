@@ -51,9 +51,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 			roles.add(new SimpleGrantedAuthority(scope));
 		}
 		
-		final User context = new User(subject, "makeuser happy, it's not needed", roles);
+		final User user = new User(subject, "makeuser happy, it's not needed", roles);
 
-		return new JwtAuthenticationToken(context, context.getAuthorities());
+		return new JwtAuthenticationToken(user, user.getAuthorities());
 	}
 
 	public Jws<Claims> parseClaims(String signingKey, String token) {
