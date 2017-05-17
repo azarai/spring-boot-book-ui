@@ -13,10 +13,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-/**
- * Creates a JWT using our userdetails
- *
- */
 @Component
 public class JWTGenerator {
 
@@ -29,7 +25,7 @@ public class JWTGenerator {
         claims.put("scopes", user.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
         
         Instant currentTime = Instant.now();
-;
+
         String token = Jwts.builder()
           .setClaims(claims)
           .setIssuer(settings.getTokenIssuer())
