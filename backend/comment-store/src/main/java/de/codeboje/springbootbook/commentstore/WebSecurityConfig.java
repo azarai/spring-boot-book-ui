@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,19 +36,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.antMatcher("/api/**").csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and().cors() // make
-																										// cors
-																										// work
-																										// with
-																										// security
-																										// filter
-					.and().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-					.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().antMatchers("/preauth").permitAll()
-					.anyRequest().authenticated().and().httpBasic().and().formLogin()
-
-					.loginProcessingUrl("/authenticate").successHandler(authenticationSuccessHandler)
-					.failureHandler(new SimpleUrlAuthenticationFailureHandler()).and().logout()
-					.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+			http.antMatcher("/api/**")
+			.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+			.and()
+				.cors()
+			.and()
+				.exceptionHandling()
+				.authenticationEntryPoint(restAuthenticationEntryPoint)
+			.and()
+				.authorizeRequests()
+					.antMatchers("/preauth").permitAll()
+					.anyRequest().authenticated()
+				.and()
+					.httpBasic()
+				.and()
+					.formLogin()
+						.loginProcessingUrl("/authenticate")
+						.successHandler(authenticationSuccessHandler)
+						.failureHandler(new SimpleUrlAuthenticationFailureHandler())
+				.and()
+					.logout()
+						.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 		}
 	}
 	
@@ -62,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 			.and().authorizeRequests()
 			.antMatchers("/").authenticated()
-			.antMatchers("/res/**").permitAll()
+//			.antMatchers("/res/**").permitAll()
 			.anyRequest().authenticated()
 			.and().formLogin().defaultSuccessUrl("/", true)
 					.and().logout().permitAll();
